@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: [true, "Email already exist"]
   },
   password: {
     type: String,
@@ -17,7 +18,16 @@ const userSchema = new mongoose.Schema({
   age: {
     type: Number,
     min: 16
-  }  
+  },
+  role: {
+    type: String,
+    enum: ["buyer", "seller", "admin"],
+    default: "buyer"
+  },
+  isVerified: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const userModel = mongoose.model("users", userSchema)

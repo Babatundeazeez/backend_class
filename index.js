@@ -1,8 +1,10 @@
-// import express
 const express = require("express")
-// app
 const app = express()
+
+// ROUTES
 const userRouter = require("./routes/userRouter")
+const categoryRouter = require("./routes/categoryRouter")
+
 app.use(express.json())
 
 const connectToDb = require("./config/connectToDb")
@@ -16,3 +18,4 @@ app.listen(4003, ()=>{
 // M = MODEL, V = VIEW,  C = CONTROLLER, R = ROUTES
 
 app.use("/api/users", userRouter)
+app.use("/api/categories", categoryRouter)
