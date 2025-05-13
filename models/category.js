@@ -12,17 +12,7 @@ const categorySchema = new mongoose.Schema({
 
     featuredImage: {
         type: String
-    },
-
-    tag: {
-        type: String,
-        enum: ["tech", "science", "religion", "business"]
-
     }
-
-    // enum: ["buyer", "seller", "admin"],
-    // default: "buyer"
-    // type: Boolean,
 })
 
 const categoryModel = mongoose.model("categories", categorySchema)

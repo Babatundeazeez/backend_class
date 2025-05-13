@@ -1,0 +1,46 @@
+const productModel = require("../models/product")
+
+const addNewProduct = async (req, res)=>{
+    try {
+        const product = await productModel.create(req.body)
+        if(!product){
+            return res.status(400).json({
+             status: "error",
+             message: "product was not created"
+            }) 
+         }
+ 
+         res.status(201).json({
+             status: "success",
+             message: "product created successfully",
+             product
+         })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getAllProduct =async (req, res)=>{
+    try {
+        const products = await productModel.find().populate("seller category") // return all products
+        if(!products){
+            return res.status(404).json({
+                status: "error",
+                message: "products not found"
+            })
+        }
+
+        res.status(200).json({
+            status: 'success',
+            message: "products fetched!",
+            products
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = {
+    addNewProduct,
+    getAllProduct
+}

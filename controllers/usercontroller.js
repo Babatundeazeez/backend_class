@@ -9,30 +9,6 @@ const userModel = require("../models/user")
 // findByIdAndUpdate(id, {title: "Welcome to class"})
 // findByIdAndDelete(id)
 
-const addUser = async (req, res)=>{
-   
-    try {
-        const user = await userModel.create(req.body)
-
-        if(!user){
-           return res.status(400).json({
-            status: "error",
-            message: "User was not created"
-           }) 
-        }
-
-        res.status(201).json({
-            status: "success",
-            message: "User created successfully",
-            user
-        })
-
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-
 const getAllUsers =async (req, res)=>{
     try {
         const users = await userModel.find() // return all users
@@ -146,6 +122,5 @@ module.exports = {
     getUserById,
     getUserByQuery,
     deleteUser,
-    addUser,
     updateUser
 }

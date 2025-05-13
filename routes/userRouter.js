@@ -10,7 +10,7 @@ userRouter.get("/:id", getUserById)
 userRouter.delete("/:id", deleteUser)
 userRouter.patch("/:id", updateUser)
 
-userRouter.post("/", addUser)
+// userRouter.post("/", addUser)
 
 
 module.exports= userRouter
