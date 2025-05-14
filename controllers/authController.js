@@ -20,12 +20,12 @@ const signup = async (req, res) => {
 
         res.status(201).json({
             status: "success",
-            message: "Sign up successful",
-            user
+            message: "Sign up successful. You can login now",
+            // user
         })
 
     } catch (error) {
-        console.lof(error)
+        console.log(error)
     }
 }
 
