@@ -1,8 +1,9 @@
 const productModel = require("../models/product")
 
 const addNewProduct = async (req, res)=>{
+
     try {
-        const product = await productModel.create(req.body)
+        const product = await productModel.create({...req.body, seller: req.user._id})
         if(!product){
             return res.status(400).json({
              status: "error",

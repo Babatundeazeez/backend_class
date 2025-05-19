@@ -1,8 +1,9 @@
 const express = require("express")
-const { addNewCategory, getAllCategories } = require("../controllers/categoryController")
-const categoryRouter = express.Router()
+const { addNewProduct, getAllProduct } = require("../controllers/productController")
+const isLoggedIn = require("../middlewares/isLoggedIn")
+const productRouter = express.Router()
 
-categoryRouter.get("/", getAllCategories)
-categoryRouter.post("/", addNewCategory)
+productRouter.get("/", getAllProduct)
+productRouter.post("/", isLoggedIn,  addNewProduct)
 
-module.exports = categoryRouter
+module.exports = productRouter

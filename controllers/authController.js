@@ -18,6 +18,8 @@ const signup = async (req, res) => {
             })
         }
 
+        // send verification email
+
         res.status(201).json({
             status: "success",
             message: "Sign up successful. You can login now",
@@ -56,7 +58,7 @@ const login = async (req, res) => {
         })
 
         res.status(200).json({
-            status: "succes",
+            status: "success",
             message: "Login successful",
             accessToken
         })
