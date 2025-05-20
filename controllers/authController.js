@@ -19,6 +19,8 @@ const signup = async (req, res) => {
         }
 
         // send verification email
+        
+        
 
         res.status(201).json({
             status: "success",

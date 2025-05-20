@@ -13,10 +13,11 @@ app.use(cors())
 //     methods: ["GET", "POST"]
 // }))
 
-const connectToDb = require("./config/connectToDb")
 const productRouter = require("./routes/productRouter")
 const authRouter = require("./routes/authRouter")
-connectToDb()
+
+require("./config/connectToDb")
+require("./services/nodemailer/transporter")
 
 // listen to port
 app.listen(4003, ()=>{

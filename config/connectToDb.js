@@ -14,5 +14,5 @@ const connectToDb = async ()=>{
         console.log(error)
     }
 }
-
+connectToDb()
 module.exports = connectToDb
