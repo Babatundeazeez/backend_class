@@ -1,31 +1,71 @@
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const userModel = require("../models/user")
+const sendVerificationEmail = require("../services/nodemailer/sendVerificationEmail")
+const generateRandomString = require("../utils/randomString")
 
 const signup = async (req, res) => {
     // hash password
-    const { password } = req.body
+    const { password, email, name } = req.body
 
     try {
         const salt = await bcrypt.genSalt(10)
         const hashedpassword = await bcrypt.hash(password, salt)
         // send the body with the hashedpassword
-        const user = await userModel.create({ ...req.body, password: hashedpassword })
+
+        // generate toekn
+        const token = generateRandomString(8)
+        const verificationExp = Date.now() + 300000
+
+        const user = await userModel.create({ ...req.body, password: hashedpassword, verificationToken: token, verificationExp })
+
         if (!user) {
             return res.status(400).json({
                 status: "error",
                 message: "could not sign up"
             })
         }
-
-        // send verification email
         
+        const userFirstName = name.split(" ")[0]
+
+        // send verification email  
+        sendVerificationEmail(email, userFirstName, token)
         
 
         res.status(201).json({
             status: "success",
-            message: "Sign up successful. You can login now",
+            message: "Sign up successful. Check your email to verify your account",
             // user
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const verifyEmail = async (req, res)=>{
+    const {token} = req.params
+    try {
+        // find the user with the verification token
+        const user = await userModel.findOne({verificationToken: token})
+        if (!user) {
+            return res.status(400).json({
+                status: "error",
+                message: "This token is invalid or has been verified"
+            })
+        }
+
+        // compare the current time with the expiration time
+        if(user.verificationExp < Date.now()){
+            return res.status(403).json({
+                status: "error",
+                message: "Verification time has expired"
+            })
+        }
+        await userModel.findByIdAndUpdate(user._id, {verificationExp: null, verificationToken: null, isVerified: true})
+        res.status(200).json({
+            status: "succes",
+            message: "Your email has been verified"
         })
 
     } catch (error) {
@@ -73,5 +113,6 @@ const login = async (req, res) => {
 
 module.exports = {
     signup,
+    verifyEmail,
     login
 }

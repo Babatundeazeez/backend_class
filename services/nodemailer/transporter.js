@@ -8,8 +8,8 @@ const transporter = nodemailer.createTransport({
     secure: false,
     port: 587,
     auth: {
-        user: process.env.nodemailer_email,
-        pass: process.env.nodemailer_pass
+        user: "timiebabs@gmail.com",
+        pass: "opad vdhq trls sabb"
     }
 })
 
@@ -23,23 +23,3 @@ transporter.verify((err, success)=>{
     }
 })
 
-const sendMail = ()=>{
-    transporter.sendMail({
-        to: "peter.babs.dev@gmail.com",
-        subject: "Welcome to Jumia",
-        sender: "Jumia jumia@gmail.com",
-        replyTo: "timiebabs@gmail.com",
-        // text: "Welcome to our wesite. we are glad to have you"
-        html: `
-            <div style="">
-                <h1>Welcome</h1>
-                <P>Welcome to our website. start buying</P>
-                <button style="background: red; color: white; padding: .5rem 1rem; border: none; border-radius: 5px;">Start Buying</button>
-                <a href="https://jumia.com">Visit our website</a>
-            </div>
-        
-        `
-    })
-}
-
-// sendMail()
