@@ -64,7 +64,7 @@ const verifyEmail = async (req, res)=>{
         }
         await userModel.findByIdAndUpdate(user._id, {verificationExp: null, verificationToken: null, isVerified: true})
         res.status(200).json({
-            status: "succes",
+            status: "success",
             message: "Your email has been verified"
         })
 
