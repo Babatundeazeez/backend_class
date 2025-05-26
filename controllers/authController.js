@@ -4,7 +4,7 @@ const userModel = require("../models/user")
 const sendVerificationEmail = require("../services/nodemailer/sendVerificationEmail")
 const generateRandomString = require("../utils/randomString")
 
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
     // hash password
     const { password, email, name } = req.body
 
@@ -39,11 +39,12 @@ const signup = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
+        next(error)
     }
 }
 
-const verifyEmail = async (req, res)=>{
+const verifyEmail = async (req, res, next)=>{
     const {token} = req.params
     try {
         // find the user with the verification token
@@ -70,10 +71,11 @@ const verifyEmail = async (req, res)=>{
 
     } catch (error) {
         console.log(error)
+        next(error)
     }
 }
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
     const { email, password } = req.body
     try {
         // fetch the user with the email
@@ -107,6 +109,7 @@ const login = async (req, res) => {
 
     } catch (error) {
         console.log(error)
+        next(error)
     }
 }
 

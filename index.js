@@ -17,12 +17,13 @@ app.use(morgan("dev"))
 
 const productRouter = require("./routes/productRouter")
 const authRouter = require("./routes/authRouter")
+const errorHandler = require("./middlewares/errorHandler")
 
 require("./config/connectToDb")
 require("./services/nodemailer/transporter")
 
 // listen to port
-app.listen(4003, ()=>{
+app.listen(4003, () => {
     console.log('listening to port 4003');
 })
 
@@ -32,7 +33,18 @@ app.listen(4003, ()=>{
 app.use("/api/auth", authRouter)
 app.use("/api/users", userRouter)
 app.use("/api/categories", categoryRouter)
-app.use("/api/products", productRouter)
+app.use("/api/products", productRouter) // api/post
+
+app.all("/{*any}", (req, res) => {
+    res.json(`${req.method} ${req.originalUrl} is not an endpoint on this server.`)
+})
+
+app.use(errorHandler);
+
+
+  
+
+  
 
 
 // PROTECTED ROUTES
