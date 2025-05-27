@@ -29,7 +29,7 @@ app.listen(4003, () => {
 
 
 // M = MODEL, V = VIEW,  C = CONTROLLER, R = ROUTES
-
+app.get("/", (req, res)=>{res.send("Welcome to Jumia Api version 1.0")})
 app.use("/api/auth", authRouter)
 app.use("/api/users", userRouter)
 app.use("/api/categories", categoryRouter)

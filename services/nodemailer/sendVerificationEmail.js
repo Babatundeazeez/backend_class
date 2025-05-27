@@ -42,7 +42,7 @@ const sendVerificationEmail = (email, userFirstName, token)=>{
             console.log(err.message)
         }else{
             console.log("Email sent successfully")
-            console.log(info)
+            // console.log(info)
         }
     })
 }

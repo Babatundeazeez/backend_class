@@ -29,7 +29,7 @@ const getAllUsers =async (req, res)=>{
     }
 }
 
-const getUserById = async (req, res)=>{
+const getUserById = async (req, res, next)=>{
     const {id} = req.params
     try {
         const user = await userModel.findById(id)
@@ -48,6 +48,7 @@ const getUserById = async (req, res)=>{
 
     } catch (error) {
         console.log(error)
+        next(error)
     }
 }
 
