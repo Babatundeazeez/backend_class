@@ -39,7 +39,7 @@ const signup = async (req, res, next) => {
         })
 
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         next(error)
     }
 }
