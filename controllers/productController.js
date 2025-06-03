@@ -1,9 +1,13 @@
 const productModel = require("../models/product")
 
 const addNewProduct = async (req, res, next)=>{
-
+    if(!req.file){
+        return res.status(400).json({message: "No file was found"})
+    }
+    const image = req.file.path
     try {
-        const product = await productModel.create({...req.body, seller: req.user._id})
+        const product = await productModel.create({...req.body, seller: req.user._id, image})
+
         if(!product){
             return res.status(400).json({
              status: "error",

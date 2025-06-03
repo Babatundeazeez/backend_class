@@ -8,6 +8,7 @@ const userRouter = require("./routes/userRouter")
 const categoryRouter = require("./routes/categoryRouter")
 
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.use(cors())
 app.use(morgan("dev"))
 // app.use(cors({
